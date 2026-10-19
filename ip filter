@@ -1,0 +1,5 @@
+raw_log = "Alert | 2026-10-19 | 192.168.4.11 | SQL_injection_Attempt"
+ip = raw_log.split("|")[2].strip()
+banned_ips = ("192.168.4.11",)
+if ip in banned_ips:
+    print("Alert: Banned IP detected!")

@@ -1,0 +1,19 @@
+# RAW SOC SYSTEM LOGS
+# Format: [SEVERITY] | IP_ADRESS | USERNAME | PORT | EVENT_STATUS
+raw_forensic_logs = [
+    "       [critical] | 192.168.1.105 | Admin-User | 22 | failed_login     ",
+    "[WARNING] | 10.0.0.50 | root | 443 | MALWARE_SIGNATURE_DETECTED",
+    "[CRITICAL] | 172.16.254.1 | unknown_user | 80 | SQL_INJECTION_ATTEMPT      ",
+    "[alert] | 192.168.1.200 | SYS_ADMIN | 3389 | UNAUTHORIZED_ACESS ",
+    "   [warning] | 10.0.0.12 | test_acc | 8080 | brute_force_suspected     " 
+]
+cleaned_logs = [raw_forensic_logs.strip().lower() for raw_forensic_logs in raw_forensic_logs]
+warning_logs = [cleaned_logs.split("|")[0].strip() for cleaned_logs in cleaned_logs]
+ip_list = [cleaned_logs.split("|")[1].strip() for cleaned_logs in cleaned_logs]
+severity_order = ["[critical]", "[alert]", "[warning]"]
+sorted_logs = []
+for severity in severity_order:
+    for log in cleaned_logs:
+        if log.split("|")[0].strip() == severity:
+            sorted_logs.append(log)
+print("\n".join(sorted_logs))
